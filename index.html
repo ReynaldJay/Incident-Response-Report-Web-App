@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Incident Response Report Tool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Incident Response Report Tool</h1>
+    <p class="subtitle">
+      A lightweight browser-based tool for creating, editing, and exporting professional incident response reports. 
+      No server required — all data stays in your browser.
+    </p>
+    <p class="credit">Developed by Reynald Jay Ebon</p>
+    <p class="stats">Reports Saved: <span id="reportsCount">0</span></p>
+    <label for="username">User (for audit):</label>
+    <input type="text" id="username" placeholder="Enter your name" />
+  </header>
+
+  <div class="container">
+    <!-- Report Content -->
+    <main id="reportContent">
+      <section class="panel expanded">
+        <div class="panel-header">Incident Metadata <span class="hint">(Required)</span></div>
+        <div class="panel-body">
+          <label>ID (auto)</label>
+          <input type="text" id="metaId" readonly />
+          <label>Title</label>
+          <input type="text" id="metaTitle" placeholder="Short incident title">
+          <label>Detected at</label>
+          <input type="datetime-local" id="metaDetected">
+          <label>Reported by</label>
+          <input type="text" id="metaReported">
+          <label>Severity</label>
+          <select id="metaSeverity">
+            <option value="">Select</option>
+            <option>Low</option><option>Medium</option><option>High</option><option>Critical</option>
+          </select>
+          <label>Status</label>
+          <select id="metaStatus">
+            <option value="">Select</option>
+            <option>Open</option><option>Investigating</option><option>Contained</option><option>Resolved</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="panel expanded">
+        <div class="panel-header">Summary <span class="hint">(Required)</span></div>
+        <div class="panel-body">
+          <textarea id="summaryText" placeholder="2–3 sentence summary..."></textarea>
+        </div>
+      </section>
+
+      <section class="panel expanded">
+        <div class="panel-header">Timeline / Log Events <span class="hint">(Required ≥1)</span></div>
+        <div class="panel-body">
+          <input type="text" id="timelineDesc" placeholder="Event description">
+          <input type="datetime-local" id="timelineTime">
+          <button id="addEventBtn">Add Event</button>
+          <div class="logs-list" id="timelineList">
+            <p class="placeholder">No events yet.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel expanded">
+        <div class="panel-header">Indicators of Compromise (IOCs)</div>
+        <div class="panel-body">
+          <textarea id="iocs" placeholder="IPs, domains, hashes, emails (one per line)"></textarea>
+        </div>
+      </section>
+    </main>
+
+    <!-- Live PDF Preview -->
+    <aside class="preview-pane">
+      <h2>PDF Preview</h2>
+      <iframe id="pdfPreview" title="PDF Preview"></iframe>
+    </aside>
+  </div>
+
+  <footer>
+    <button id="exportPdfBtn" title="Export to PDF">📄 Export PDF</button>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
